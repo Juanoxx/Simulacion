@@ -11,6 +11,8 @@ class ConsumidoresAgent(mesa.Agent):
         self.Inicial=[]
         self.rutasRecorridas=[]
         self.productosComprados=[]
+    def step(self):
+        print('funciono y soy el consumidor ', str(self.unique_id))
 
 class LocalVentaAgent(mesa.Agent):
     def __init__(self, unique_id, model):
@@ -18,29 +20,23 @@ class LocalVentaAgent(mesa.Agent):
         self.CantidadVendedores = 1
         self.CantidadProductosDisponibles=[]
         self.oportunidadVenta=[]
+    def step(self):
+        print('funciono y soy el local de venta ', str(self.unique_id))
     def atencion(self):
         self.CantidadVendedores+=1
 
 
-class ConsumidoresModel(mesa.Model):
-    """A model with some number of agents."""
-
-    def __init__(self, N):
-        self.num_agents = N
+class FondaModel(mesa.Model):
+    def __init__(self, NC, NV):
+        self.numConsumidores = NC
+        self.numLocalesVenta = NV
+        self.schedule = mesa.time.RandomActivation(self)
         # Create agents
-        for i in range(self.num_agents):
-            a = ConsumidoresAgent(i, self)
-
-
-class LocalVentaModel(mesa.Model):
-    """A model with some number of agents."""
-
-    def __init__(self, N):
-        self.num_agents = N
-
-        # Create agents
-        for i in range(self.num_agents):
-            a = LocalVentaAgent(i, self)
-local1=LocalVentaAgent(1,'modelo')
-local1.atencion()
-print(local1.CantidadVendedores)
+        for i in range(self.numConsumidores):
+            a= ConsumidoresAgent(i, self)
+            self.schedule.add(a)
+        for j in range(self.numLocalesVenta):
+            b=LocalVentaAgent(NC+j,self)
+            self.schedule.add(b)
+    def step(self):
+        self.schedule.step()
