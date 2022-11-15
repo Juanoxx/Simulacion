@@ -1,3 +1,10 @@
 from fondas_simulacion import FondaModel
-prueba=FondaModel(10,12)
+f = open ('datos.txt','r')
+datos = f.read()
+print(datos.split('\n'))
+NC,NV,Horario,cantMaxVendedores,Comida=datos.split('\n')
+Comida=Comida.split(',')
+f.close()
+prueba=FondaModel(NC,NV,Horario,cantMaxVendedores,Comida)
+print(prueba.comida)
 prueba.step()
