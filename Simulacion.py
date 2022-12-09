@@ -6,3 +6,7 @@ Comida=Comida.split(',')
 f.close()
 simulacion=FondaModel(NC,NV,cantMaxVendedores,tiempoAtencion,Comida)
 simulacion.step()
+for i in range(1000):
+   simulacion.step()
+#for i in range(simulacion.schedule.get_agent_count()):
+   # print(simulacion.schedule.agents[i].unique_id)
