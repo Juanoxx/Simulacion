@@ -115,14 +115,12 @@ class ConsumidoresAgent(mesa.Agent):
 class LocalVentaAgent(mesa.Agent):
     def __init__(self, unique_id, model):
         super().__init__(unique_id, model)
-        self.CantidadVendedores = 1
         self.CantidadProductosDisponibles=[]
         self.oportunidadVenta=[]
         self.posicion=[]
         #Tamaño maximo de fila es 10.
         self.fila=0
     def setDatosIniciales(self):
-        self.CantidadVendedores=random.randint(1,self.model.cantMaxVendedores)
         for i in range(len(self.model.comida)):
             self.CantidadProductosDisponibles.append(random.randint(0,100))
             self.oportunidadVenta.append(round(random.uniform(0,1),2))
@@ -154,10 +152,9 @@ def human_format(x,y, matriz):
 
 
 class FondaModel(mesa.Model):
-    def __init__(self, NC, NV,cantMaxVendedores,tiempoAtencion,Comida):
+    def __init__(self, NC, NV,tiempoAtencion,Comida):
         self.numConsumidores = int(NC)
         self.numLocalesVenta = int(NV)
-        self.cantMaxVendedores=int(cantMaxVendedores)
         self.horario=10
         self.comida=Comida
         self.tiempoAtencion=int(tiempoAtencion)

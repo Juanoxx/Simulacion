@@ -8,15 +8,16 @@ from os import remove
 from os import path
 f = open ('datos.txt','r')
 datos = f.read()
-NC,NV,cantMaxVendedores,tiempoAtencion,Comida=datos.split('\n')
+NC,NV,tiempoAtencion,Comida=datos.split('\n')
 Comida=Comida.split(',')
 f.close()
-simulacion=FondaModel(NC,NV,cantMaxVendedores,tiempoAtencion,Comida)
+simulacion=FondaModel(NC,NV,tiempoAtencion,Comida)
 print(simulacion.schedule.agents[40].unique_id)
 for i in range(10):
    simulacion.step()
 print(simulacion.visitas)
 print(simulacion.CantidadProductosVendidos)
+print(simulacion.comida)
 imagenes=[]
 for j in range(10):
    imagenes.append(cv2.imread(str(j+1)+'.png'))
