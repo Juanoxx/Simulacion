@@ -139,13 +139,26 @@ class LocalVentaAgent(mesa.Agent):
     def atencion(self):
         pass
 
+def human_format(x,y, matriz):
+    
+    newMatriz=[]
+
+    for i in range(x):
+        columna=[]
+        for j in range(y):
+            num = matriz[i][j]/1000
+            columna.append(num)
+        newMatriz.append(columna)
+
+    return newMatriz
+
 
 class FondaModel(mesa.Model):
     def __init__(self, NC, NV,cantMaxVendedores,tiempoAtencion,Comida):
         self.numConsumidores = int(NC)
         self.numLocalesVenta = int(NV)
         self.cantMaxVendedores=int(cantMaxVendedores)
-        self.horario=13*60
+        self.horario=10
         self.comida=Comida
         self.tiempoAtencion=int(tiempoAtencion)
         self.stepCounter=0
@@ -177,12 +190,14 @@ class FondaModel(mesa.Model):
         self.stepCounter+=1
         self.schedule.step()
         print(self.stepCounter)
+        print(human_format(9,49,self.ambienteCantidadPersonas))
+        print(self.ambienteCantidadPersonas)
         usuarios = pd.DataFrame(
             self.ambienteCantidadPersonas
         )
 
         plt.figure(self.stepCounter, figsize=(27,5))
-        ax = sns.heatmap(usuarios, cmap = "Blues", annot = True)
+        ax = sns.heatmap(usuarios, cmap = "Blues")
         plt.savefig(str(self.stepCounter)+'.png')
         fig=plt.figure()
         matplotlib.use("Agg")
