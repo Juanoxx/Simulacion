@@ -23,7 +23,6 @@ class ConsumidoresAgent(mesa.Agent):
         self.tiempoSalida=0
         self.Inicial=[]
         self.ultimaPos=[]
-        self.productosComprados=[]
         self.posicion=[0,0]
         self.cantidadPersonas=0
         self.espera=0
@@ -134,8 +133,7 @@ class LocalVentaAgent(mesa.Agent):
     def step(self):
         pass
         #print('funciono y soy el local de venta ', str(self.unique_id),' y mi posicion es:',self.posicion)
-    def atencion(self):
-        pass
+    
 
 def human_format(x,y, matriz):
     
