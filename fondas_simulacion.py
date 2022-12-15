@@ -158,7 +158,7 @@ class FondaModel(mesa.Model):
         self.numConsumidores = int(NC)
         self.numLocalesVenta = int(NV)
         self.cantMaxVendedores=int(cantMaxVendedores)
-        self.horario=10
+        self.horario=20
         self.comida=Comida
         self.tiempoAtencion=int(tiempoAtencion)
         self.stepCounter=0
@@ -190,7 +190,6 @@ class FondaModel(mesa.Model):
         self.stepCounter+=1
         self.schedule.step()
         print(self.stepCounter)
-        print(human_format(9,49,self.ambienteCantidadPersonas))
         print(self.ambienteCantidadPersonas)
         usuarios = pd.DataFrame(
             self.ambienteCantidadPersonas
