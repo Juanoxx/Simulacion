@@ -35,7 +35,9 @@ data = pd.DataFrame(simulacion.CantidadProductosVendidos,
                     index= simulacion.comida)
 total = data.sum(axis=1)
 plt.bar(total.index, total)
-
+plt.xlabel("Productos")
+plt.ylabel("Venta")
+plt.title("Productos más vendidos")
 plt.savefig('ProductosVendidos.png')
 
 plt.figure(0, figsize=(27,5))
@@ -53,5 +55,7 @@ data = pd.DataFrame(top_diez,
                     index)
 total = data.sum(axis=1)
 plt.bar(total.index, total)
-
+plt.xlabel("Locales")
+plt.ylabel("Visitas")
+plt.title("Locales más visitados")
 plt.savefig('ProductosVendidosPorLocal.png')
