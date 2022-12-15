@@ -81,16 +81,16 @@ class ConsumidoresAgent(mesa.Agent):
         while(True):
             if(self.model.schedule.agents[puesto].CantidadProductosDisponibles[self.deseoCompra[counter][1]]>self.cantidadPersonas):
                 venta=round(random.uniform(0,1),2)
-                print("venta:", venta, "\noportunidad:",self.model.schedule.agents[puesto].oportunidadVenta[self.deseoCompra[counter][1]])
+                #print("venta:", venta, "\noportunidad:",self.model.schedule.agents[puesto].oportunidadVenta[self.deseoCompra[counter][1]])
                 if(venta<=self.model.schedule.agents[puesto].oportunidadVenta[self.deseoCompra[counter][1]]):
                     self.model.schedule.agents[puesto].CantidadProductosDisponibles[self.deseoCompra[counter][1]]-=self.cantidadPersonas
                     self.model.CantidadProductosVendidos[self.deseoCompra[counter][1]]+=self.cantidadPersonas
                     self.deseoCompra[counter][0]=-1.1
-                    print("lo compro")
+                    #print("lo compro")
                 break
             counter+=1
             if(counter==len(self.model.comida)):
-                print("no compro")
+                #print("no compro")
                 break
     def moverse(self):
         mov=self.movimientos[random.randint(0,7)]
@@ -126,10 +126,13 @@ class LocalVentaAgent(mesa.Agent):
         self.posicionar()
     def posicionar(self):
         self.posicion=[random.randint(0,len(self.model.ambiente)-1), random.randint(0,len(self.model.ambiente[0])-1)]
+        for i in range(len(self.model.entradas)):
+            if (self.posicion==self.model.entradas[i]):
+                return self.posicionar()
         if (self.model.ambiente[self.posicion[0]][self.posicion[1]] == 0):
             self.model.ambiente[self.posicion[0]][self.posicion[1]]=self.unique_id
         else:
-            self.posicionar()
+            return self.posicionar()
     def step(self):
         pass
         #print('funciono y soy el local de venta ', str(self.unique_id),' y mi posicion es:',self.posicion)
@@ -153,8 +156,7 @@ class FondaModel(mesa.Model):
     def __init__(self, NC, NV,tiempoAtencion,Comida):
         self.numConsumidores = int(NC)
         self.numLocalesVenta = int(NV)
-        self.cantMaxVendedores=int(cantMaxVendedores)
-        self.horario=20
+        self.horario=100
         self.comida=Comida
         self.tiempoAtencion=int(tiempoAtencion)
         self.stepCounter=0
