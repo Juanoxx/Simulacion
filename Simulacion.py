@@ -13,17 +13,17 @@ Comida=Comida.split(',')
 f.close()
 simulacion=FondaModel(NC,NV,tiempoAtencion,Comida)
 print(simulacion.schedule.agents[40].unique_id)
-for i in range(100):
+for i in range(780):
    simulacion.step()
-print(simulacion.visitas)
-print(simulacion.CantidadProductosVendidos)
-print(simulacion.comida)
+#print(simulacion.visitas)
+#print(simulacion.CantidadProductosVendidos)
+#print(simulacion.comida)
 imagenes=[]
-for j in range(100):
+for j in range(780):
    imagenes.append(cv2.imread(str(j+1)+'.png'))
 height, width  = imagenes[9].shape[:2]
 video = cv2.VideoWriter('recorrido.wmv',cv2.VideoWriter_fourcc(*'mp4v'),2,(width,height))
-for k in range(100):
+for k in range(780):
    video.write(imagenes[k])
    if path.exists(str(k+1)+".png"):
     remove(str(k+1)+".png")

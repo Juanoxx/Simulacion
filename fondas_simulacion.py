@@ -54,6 +54,7 @@ class ConsumidoresAgent(mesa.Agent):
                         #print("debug 2",self.unique_id)
                         puesto=self.model.ambiente[self.posicion[0]][self.posicion[1]]
                         self.model.schedule.agents[puesto].fila-=1
+                        self.espera=0
                         self.comprar()
                         self.moverse()
                         
@@ -156,7 +157,7 @@ class FondaModel(mesa.Model):
     def __init__(self, NC, NV,tiempoAtencion,Comida):
         self.numConsumidores = int(NC)
         self.numLocalesVenta = int(NV)
-        self.horario=100
+        self.horario=780
         self.comida=Comida
         self.tiempoAtencion=int(tiempoAtencion)
         self.stepCounter=0
@@ -188,7 +189,7 @@ class FondaModel(mesa.Model):
         self.stepCounter+=1
         self.schedule.step()
         print(self.stepCounter)
-        print(self.ambienteCantidadPersonas)
+        #print(self.ambienteCantidadPersonas)
         usuarios = pd.DataFrame(
             self.ambienteCantidadPersonas
         )
